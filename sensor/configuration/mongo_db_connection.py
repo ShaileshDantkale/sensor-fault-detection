@@ -1,8 +1,8 @@
 import pymongo
 from sensor.constant.database import DATABASE_NAME
-from sensor.constant.env_variable import MONGODB_URL_KEY
+
 import certifi
-import os
+
 ca = certifi.where()
 
 class MongoDBClient:
@@ -12,11 +12,7 @@ class MongoDBClient:
 
             if MongoDBClient.client is None:
                 mongo_db_url = "mongodb+srv://mdb:812412s6162@cluster0.yiajxel.mongodb.net/test"
-                print(mongo_db_url)
-                if "localhost" in mongo_db_url:
-                    MongoDBClient.client = pymongo.MongoClient(mongo_db_url) 
-                else:
-                    MongoDBClient.client = pymongo.MongoClient(mongo_db_url, tlsCAFile=ca)
+                MongoDBClient.client = pymongo.MongoClient(mongo_db_url, tlsCAFile=ca)
             self.client = MongoDBClient.client
             self.database = self.client[database_name]
             self.database_name = database_name
