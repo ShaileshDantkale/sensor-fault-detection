@@ -1,9 +1,10 @@
 import pymongo
 from sensor.constant.database import DATABASE_NAME
-
+from sensor.constant.env_variable import MONGODB_URL_KEY
 import certifi
-
+import os
 ca = certifi.where()
+
 
 class MongoDBClient:
     client = None
@@ -11,6 +12,8 @@ class MongoDBClient:
         try:
 
             if MongoDBClient.client is None:
+                mongo_db_url = os.getenv(MONGODB_URL_KEY)
+
                 mongo_db_url = "mongodb+srv://mdb:812412s6162@cluster0.yiajxel.mongodb.net/test"
                 MongoDBClient.client = pymongo.MongoClient(mongo_db_url, tlsCAFile=ca)
             self.client = MongoDBClient.client
